@@ -1,20 +1,10 @@
 """
-Má to fungovat tak, že se tomu hodí input.. třeba nejaký soubor, nebo stdin (standard input)
-Ten to zmenší
-A má to fungovat i tak aby to ten zmenšenej vratilo zpět
-Takže bych si predstavoval nejaký parametry
-Treba -e jako encode
-A -d jako decode
-recursion
-
+Use text file as input into the script
 How to run example:
-python -m shannon_fano 'abcfdedf' encode
+python -m shannon_fano example_file.txt encode
 """
 import argparse
 import json
-
-text0 = 'Its had resolving otherwise she contented therefore. Afford relied warmth out sir hearts sister'
-text_test = 25 * 'a' + 25 * 'b' + 20 * 'c' + 15 * 'd' + 10 * 'e' + 5 * 'f'
 
 
 def arguments():
@@ -126,21 +116,13 @@ def main():
     args = arguments()
     file = args.file
     process = args.process
-    print(file, process)
-    # list_unique, prob = inputs(text_test)
     list_unique, prob = inputs(file)
     list_unique, prob, tree_dict = starting(list_unique, prob)
     tree = binary_tree(tree_dict)
-    check = [x for x in tree.values() if len(x) == 1]
-    if len(check) == len(list_unique):
-        print(f'Correct, length = {len(check)}')
-
     tree, result = replace_binary(list_unique, prob, tree)
-    print(json.dumps(tree, indent=4))
-    print(json.dumps(result, indent=4))
-    final = replace_text(text_test, result)
-    # with open('text_test.txt', 'w') as file:
-    #     file.write(final)
+    final = replace_text(file, result)
+    with open('text_test.txt', 'w') as file:        # write into file
+        file.write(final)
 
 
 if __name__ == "__main__":
