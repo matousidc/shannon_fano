@@ -1,4 +1,4 @@
 # Shannon-Fano algorithm
 Data compression algorithm.
-- Input: text file
-- Output: encoded text file
+- Input: text file or binary file
+- Output: encoded or decoded file
